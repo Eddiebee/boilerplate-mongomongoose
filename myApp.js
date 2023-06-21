@@ -97,8 +97,11 @@ const removeById = (personId, done) => {
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+  // using Person.deleteMany() cuz .remove() is deprecated
+  Person.deleteMany({ name: nameToRemove }, (err, data) => {
+    if (err) return done(err);
+    done(null, data);
+  });
 };
 
 const queryChain = (done) => {
