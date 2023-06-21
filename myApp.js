@@ -9,6 +9,16 @@ mongoose.connect(process.env.MONGO_URI, {
 // A model allows me to create instances of my objects,
 // called documents.
 
+const personSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  age: Number,
+  favoriteFoods: {
+    type: [String],
+  },
+});
 
 let Person;
 
