@@ -43,24 +43,24 @@ const createManyPeople = (arrayOfPeople, done) => {
 };
 
 const findPeopleByName = (personName, done) => {
-  const persons = Person.find({name: personName}, (err, data) => {
+  const persons = Person.find({ name: personName }, (err, data) => {
     if (err) return done(err);
     done(null, data);
   });
 };
 
 const findOneByFood = (food, done) => {
-  const person = Person.findOne({favoriteFoods: food}, (err, data) => {
+  const person = Person.findOne({ favoriteFoods: food }, (err, data) => {
     if (err) return done(err);
     done(null, data);
-  })
+  });
 };
 
 const findPersonById = (personId, done) => {
   const person = Person.findById(personId, (err, data) => {
     if (err) return done(err);
     done(null, data);
-  })
+  });
 };
 
 const findEditThenSave = (personId, done) => {
@@ -77,8 +77,15 @@ const findEditThenSave = (personId, done) => {
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-
-  done(null /*, data*/);
+  const data = Person.findOneAndUpdate(
+    { name: personName },
+    { age: ageToSet },
+    { new: true },
+    (err, updatedPerson) => {
+      if (err) return done(err);
+      done(null, updatedPerson);
+    }
+  );
 };
 
 const removeById = (personId, done) => {
